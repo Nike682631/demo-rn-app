@@ -6,7 +6,7 @@ import FormInput from '../components/FormInput'
 const TextScreen = () => {
   const [texts, setTexts] = useState(null);
   const [text, setText] = useState(null);
-  
+
 
   useEffect(() => {
     fetchTexts();
@@ -60,21 +60,30 @@ const TextScreen = () => {
       console.log(e);
     }
   }
+  const ItemSeprator = () => <View style={{
 
+    height: 2,
+  
+    width: "100%",
+  
+    backgroundColor: "rgba(0,0,0,0.5)",
+  
+  }} />
   return (
     <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-      <FormInput onChangeText = {(userText) => setText(userText)} />
+      <FormInput onChangeText={(userText) => setText(userText)} />
       <Button
         buttonTitle="Upload Text"
         onPress={submitText}
       />
       <FlatList
         data={texts}
-        contentContainerStyle={{justifyContent: 'center', alignItems: "center"}}
-        columnWrapperStyle={styles.tagView}
-        numColumns={3}
+        contentContainerStyle={{ justifyContent: 'center', alignItems: "center" }}
+        ItemSeparatorComponent={ItemSeprator}
         renderItem={({ item }) => (
-        <Text>{item.text}</Text>
+          <View>
+            <Text style = {styles.textStyle}>{item.text}</Text>
+          </View>
         )}
       />
     </View>
@@ -90,6 +99,11 @@ const styles = StyleSheet.create({
   tagView: {
     flexWrap: "wrap"
   },
+  textStyle: {
+    fontSize: 30,
+    margin: 10,
+    fontFamily: "Kufam-Italic"
+  }
 });
 
 export default TextScreen
